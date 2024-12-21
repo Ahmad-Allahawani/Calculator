@@ -9,7 +9,7 @@
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
-          .register("/service-worker.js")
+          .register("/Calculator/service-worker.js")
           .then((reg) => console.log("Service Worker registered", reg))
           .catch((err) => console.log("Service Worker registration failed", err));
       }
