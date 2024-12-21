@@ -6,8 +6,8 @@ const CACHE_ASSETS = [
     "/Calculator/index.html",
     "/Calculator/icon.png",
     "/icons/icon-512x512.png",
-    "/Calculator/style.css", // Add your CSS file if any
-    "/Calculator/script.js"  // Add your JS file if any
+    "/Calculator/style.css", 
+    "/Calculator/script.js" 
 ];
 
 // Install Event
