@@ -24,6 +24,16 @@ self.addEventListener("fetch", event => {
     })
   );
 });
+self.addEventListener('fetch', (event) => {
+    if (event.request.mode === 'navigate') {
+        event.respondWith(
+            caches.match('/index.html').then((response) => {
+                return response || fetch('/index.html');
+            })
+        );
+    }
+});
+
 
 
 self.addEventListener("activate", event => {
