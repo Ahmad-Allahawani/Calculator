@@ -1,7 +1,7 @@
 const CACHE_NAME = "v1";
 const urlsToCache = [
   "/",
-  "/index.html",
+  "/Calculator/index.html",
   "/styles.css",
   "/script.js",
   "/icons/icon-192x192.png",
