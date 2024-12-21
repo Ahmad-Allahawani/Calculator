@@ -1,39 +1,49 @@
-const CACHE_NAME = "v1";
-const urlsToCache = [
-  "/",
-  "/Calculator/index.html",
-  "/styles.css",
-  "/script.js",
-  "/icons/icon-192x192.png",
-  "/icons/icon-512x512.png"
+// Cache name
+const CACHE_NAME = "my-pwa-cache-v1";
+
+// Files to cache
+const CACHE_ASSETS = [
+    "/Calculator/index.html",
+    "/Calculator/icon.png",
+    "/icons/icon-512x512.png",
+    "/Calculator/style.css", // Add your CSS file if any
+    "/Calculator/script.js"  // Add your JS file if any
 ];
 
-
-self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(urlsToCache);
-    })
-  );
+// Install Event
+self.addEventListener("install", (event) => {
+    console.log("[Service Worker] Installing...");
+    event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+            console.log("[Service Worker] Caching app shell");
+            return cache.addAll(CACHE_ASSETS);
+        })
+    );
 });
 
-self.addEventListener("fetch", event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
-  );
+// Activate Event
+self.addEventListener("activate", (event) => {
+    console.log("[Service Worker] Activating...");
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cache) => {
+                    if (cache !== CACHE_NAME) {
+                        console.log("[Service Worker] Clearing old cache");
+                        return caches.delete(cache);
+                    }
+                })
+            );
+        })
+    );
 });
 
-
-self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames
-          .filter(cacheName => cacheName !== CACHE_NAME)
-          .map(cacheName => caches.delete(cacheName))
-      );
-    })
-  );
+// Fetch Event
+self.addEventListener("fetch", (event) => {
+    console.log("[Service Worker] Fetching resource: ", event.request.url);
+    event.respondWith(
+        caches.match(event.request).then((response) => {
+            return response || fetch(event.request);
+        })
+    );
 });
