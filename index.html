@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>calculator</title>
     <link rel="stylesheet" href="calc.css" />
-    <link rel="manifest" href="PWA-main/manifest.json" />
+    <link rel="manifest" href="/Calculator/manifest.json" />
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
-          .register("/service-worker.js")
+          .register("/Calculator/service-worker.js")
           .then((reg) => console.log("Service Worker registered", reg))
           .catch((err) => console.log("Service Worker registration failed", err));
       }
